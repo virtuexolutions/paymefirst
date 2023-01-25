@@ -67,8 +67,9 @@ class RegisterController extends BaseController
             if($user->email_verified_at != null)
             {
                 if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 
-                    $user = Auth::user(); 
-                    $token =  $user->createToken('app_api')->accessToken; 
+                    $user = User::with(['goal','temporary_wallet','wallet','payments'])->where('id',Auth::user()->id)->first(); 
+                    $users = Auth::user();
+                    $token =  $users->createToken('app_api')->accessToken; 
 		            return response()->json(['success'=>true,'message'=>'User Logged In successfully' ,'token'=>$token,'user_info'=>$user]);
                } 
                 else{ 

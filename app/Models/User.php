@@ -43,4 +43,24 @@ class User extends Authenticatable
     {
         return $this->hasOne(UserCardDetail::class,'user_id','id');
     }
+    
+    public function wallet()
+    {
+        return $this->hasOne(Wallet::class,'user_id','id');
+    }
+
+    public function temporary_wallet()
+    {
+        return $this->hasOne(TemporaryWallet::class,'user_id','id');
+    }
+    
+    public function payments()
+    {
+        return $this->hasMany(Payment::class,'customer_id','stripe_id');
+    }
+    
+    public function goal()
+    {
+        return $this->hasOne(Goal::class,'user_id','id');
+    }
 }

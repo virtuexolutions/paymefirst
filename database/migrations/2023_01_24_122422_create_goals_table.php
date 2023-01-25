@@ -16,11 +16,12 @@ return new class extends Migration
         Schema::create('goals', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id')->nullable();
-            $table->string('name')->nullable();
-            $table->string('pln')->nullable();
+            $table->string('amount_save')->nullable();
+            $table->string('plan')->nullable();
             $table->string('starting_date')->nullable();
             $table->string('ending_date')->nullable();
-            $table->string('emi_count')->nullable();
+            $table->string('number_deduction')->nullable();
+            $table->string('amount_per_deduction')->nullable();
             $table->timestamps();
         });
     }

@@ -34,10 +34,13 @@ Route::post('password/code/check', [\App\Http\Controllers\Api\CodeCheckControlle
 Route::get('guide', [\App\Http\Controllers\Api\CMSController::class, 'guide']);
 Route::get('term/conditions', [\App\Http\Controllers\Api\CMSController::class, 'termanscondition']);
 
-Route::group(['middleware' => ['api','auth:api'], 'prefix' => 'auth'], function () {
-    Route::post('addcard', [\App\Http\Controllers\UserCardController::class, 'addcard']); 
+// Route::group(['middleware' => ['api','auth:api'], 'prefix' => 'auth'], function () {
+Route::middleware('auth:api')->group( function () {
     Route::post('set_goal', [\App\Http\Controllers\Api\GoalController::class, 'set_goal']); 
+    Route::post('addcard', [\App\Http\Controllers\UserCardController::class, 'addcard']); 
     Route::get('user', [\App\Http\Controllers\Api\RegisterController::class, 'user']);
+    Route::get('transaction', [\App\Http\Controllers\TranasactionController::class, 'index']);
+    Route::post('withdraw', [\App\Http\Controllers\TranasactionController::class, 'withdraw']);
     Route::post('change_password', [\App\Http\Controllers\Api\RegisterController::class, 'change_password']); 
     Route::post('profile', [\App\Http\Controllers\Api\UserController::class, 'profile']);  
 	Route::post('cuurent/plan', [\App\Http\Controllers\Api\UserController::class, 'current_plan']);  	
@@ -47,4 +50,3 @@ Route::group(['middleware' => ['api','auth:api'], 'prefix' => 'auth'], function 
     Route::post('contact/submit', [\App\Http\Controllers\Api\ContactController::class, 'contact_info']);
     Route::get('logout', [\App\Http\Controllers\Api\RegisterController::class, 'logout']);
 });
-
